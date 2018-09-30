@@ -84,10 +84,17 @@ g=(gender=sample(c('M','F'),size=30, replace=T, prob=c(.7,.3)))
 table(g)
 prop.table(table(g))
 (set.seed(1234))
-df1=data.frame(rollno, sname, gender, marks, marks2, course, stringsAsFactors=F)
+df1=data.frame(rollno, sname, gender, marks, marks2, course, stringsAsFactors=F)#factor is a category, let all values to be strings only and not factors
 df1
 str(df1)
 head(df1,n=3)
+summary(df1)
+df1$gender=factor(df1$gender)
+summary(df1)
+df1$course=factor(df1$course)
+summary(df1)
+df1[marks>50 & gender='F', c('roll')]
+
 #List----
 
 #Factor
