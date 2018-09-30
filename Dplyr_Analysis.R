@@ -42,4 +42,4 @@ filter(mtcars, cyl==8, vs==0)
 mutate(mtcars, dip_l=disp/61.0237)
 slice(mtcars,1L) #prints first row
 
->>>>>>> aa42554242ecbb821d2e74e1f88c3d0d67319549
+
