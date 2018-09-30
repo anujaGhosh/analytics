@@ -23,7 +23,7 @@ dim(dataset)
 #install.packages('caTools')
 library(caTools)
 set.seed(2000)
-split = sample.split(dataset$purchased, SplitRatio = 0.75)
+split = sample.split(dataset$purchased, SplitRatio = 0.75)#75% goes to training set rest to test set
 training_set = subset(dataset, split == TRUE)
 test_set = subset(dataset, split == FALSE)
 
@@ -32,31 +32,34 @@ names(dataset)
 
 
 # Logisitic Model on Training Set
-logitmodel1 = glm(purchased ~ gender + age + salary, family = binomial,  data = training_set)
+logitmodel1 = glm(purchased ~ gender + age + salary, family = binomial,  data = training_set)#generalised linear modelling
 summary(logitmodel1)
 
 # gender not insignificant dropped here
-logitmodel2 = glm(purchased ~ age + salary, family = binomial, data = training_set)
+logitmodel2 = glm(purchased ~ age + salary, family = binomial, data = training_set)#gender column removed since it is not significanyt to deterine the purchase
 summary(logitmodel2)
 
 #summary(logitmodel2)$coefficient  # they are in log terms
 
 #predict on sample data
-test_set2 = data.frame(age=c(40,65), salary=c(40000, 50000))
-(prob_pred2 = predict(logitmodel2, type = 'response', newdata = test_set2))
+test_set2 = data.frame(age=c(40,65), gender=c('Male','Female'), salary=c(40000, 50000))
+(prob_pred2 = predict(logitmodel1, type = 'response', newdata = test_set2))
 cbind(test_set2, prob_pred2)
 #age=65 person likely to purchase
 
 # Predicting the Test set results from testset
 head(test_set)
-prob_pred = predict(logitmodel2, type = 'response', newdata = test_set)
+prob_pred = predict(logitmodel1, type = 'response', newdata = test_set)
 summary(prob_pred)
 head(cbind(test_set,prob_pred ),10)
 
 #if prob > 0.5 make it 1, else 0
 y_pred = ifelse(prob_pred > 0.5, 1, 0)
 head(cbind(test_set$purchased, y_pred),15)
-
+library(lattice)
+library(ggplot2)
+library(caret)
+library(e1071)
 # Making the Confusion Matrix
 cm = table(test_set[,5], y_pred)
 cm
