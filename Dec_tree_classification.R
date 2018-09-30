@@ -16,7 +16,7 @@ library(rpart.plot)
 #Decision Tree
 fit <- rpart(survived~., data = data, method = 'class')
 fit
-rpart.plot(fit, extra = 106, cex=.8,nn=T)  #plot
+rpart.plot(fit, extra = 102, cex=.8,nn=T)  #plot
 
 printcp(fit) #select complexity parameter
 prunetree2 = prune(fit, cp=.014)
