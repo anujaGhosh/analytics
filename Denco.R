@@ -1,4 +1,4 @@
-Case Study - Denco  
+#Case Study - Denco  
 #Manufacturing Firm with sales data of partnum and customer with region wise sales
 
 # Should know - import, table, dplyr, aggregate etc
@@ -20,8 +20,8 @@ str(sales3)
 head(sales3)
 
 
-# whichever you read the data, store it in sales object
-sales = sales1  # keeping a backuph
+# whichever way you read the data, store it in sales object
+sales = sales1  # keeping a backup
 head(sales)  #top 6 rows
 str(sales)  # structure
 class(sales) # class type - Df
@@ -67,7 +67,7 @@ sales %>% dplyr::group_by(custname) %>% dplyr::summarise(n = n()) %>% dplyr::arr
 
 
 #Case-2 : Customer- Highest Revenue---
-sales %>% group_by(custname) %>%  summarize(Revenue = sum(revenue)) %>% arrange(desc(Revenue)) %>% tail(n=5)
+sales %>% group_by(custname) %>%  summarize(Revenue = sum(revenue)) %>% arrange(desc(Revenue)) %>% head(n=5)
 #Ans2: Triumph Insulation gave max revenue
 
 # save this object and then analyse
