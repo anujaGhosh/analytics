@@ -5,9 +5,10 @@
 #sample Data
 marks = data.frame(sub1=c(0,1,2,4,5,4,6,7),sub2=c(0,1,2,3,3,4,5,5))
 km1 = kmeans(marks, center=2)
+km1
 plot(marks,col=km1$cluster,cex=1.5)
 points(km1$center,col=1:2,pch=8,cex=2)
-
+km1$betweenss
 
 #iris dataset
 
@@ -16,6 +17,7 @@ library(cluster)
 library(fpc)
 
 data(iris)
+head(iris)
 data = iris[, -5] # without known classification 
 # Kmeans cluster analysis
 iriskm1 =  kmeans(data, centers=3)
@@ -26,7 +28,7 @@ clusplot(data, iriskm1$cluster, color=TRUE, shade=TRUE, labels=2, lines=0)
 
 # another method
 with(iris, pairs(data, col=c(1:3)[iriskm1$cluster])) 
-
+with(iris, pairs(data, col=c(2)[iriskm1$cluster]))
 
 #Finding optimal No of Clusters
 iris
@@ -38,6 +40,7 @@ km1= kmeans(data,centers=1)
 km1$tot.withinss; km1$withinss
 
 km2= kmeans(data,centers=2)
+km2
 km2$tot.withinss; km2$withinss
 
 km3= kmeans(data,centers=3)
@@ -46,6 +49,7 @@ km3$tot.withinss ; km3$withinss
 
 km4= kmeans(data,centers=4)
 km4$tot.withinss; km4$withinss
+data[km4$cluster==4,]#find which data points are going to which cluster and then targer
 
 km5= kmeans(data,centers=5)
 km5$tot.withinss;km5$withinss
@@ -54,10 +58,10 @@ km1$tot.withinss; km2$tot.withinss ; km3$tot.withinss ; km4$tot.withinss ; km5$t
 
 #Selecting the number of clusters
 library(NbClust)
-nc = NbClust(data, distance="euclidean",min.nc=2, max.nc=15, method="average")  
+nc = NbClust(data, distance="euclidean",min.nc=2, max.nc=15, method="average")  #optimal number of clusters
 #avg -  distance Dij between two clusters Ci and Cj is the mean of the distances between the pair of points x and y
 
-kiris = kmeans(data, centers=3)
+kiris = kmeans(data, centers=3)#check from graph method what should be optimal number of clusters, from the graph...check at the point of inflection...optimal number here is 3
 kiris$centers
 irisclusters = cbind(iris$Species, data, kiris$cluster)
 head(irisclusters)
