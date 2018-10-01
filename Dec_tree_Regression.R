@@ -30,7 +30,7 @@ rpart.plot(prunetree, nn=T, cex=.8, type=4)
 #read this document to improve the plot
 #https://cran.r-project.org/web/packages/rpart.plot/rpart.plot.pdf
 #http://www.milbo.org/rpart-plot/prp.pdf
-
+printcp(tree1)
 #Predict for test value
 (testdata = sample_n(data,2))
 (predictedSales=predict(prunetree, newdata=testdata, type='vector'))

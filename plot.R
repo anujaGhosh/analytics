@@ -30,6 +30,9 @@ length(breaks)
 x3.cut=cut(x3,breaks)
 x3.cut
 range(x3)
+table(x3.cut)
+(x3.cut=cut(x3, breaks, labels=letters[1:10]))
+table(x3.cut)
 mtcars[c('mpg','wt','hp')]
 
 

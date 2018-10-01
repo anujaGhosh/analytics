@@ -19,14 +19,15 @@ fit
 rpart.plot(fit, extra = 102, cex=.8,nn=T)  #plot
 
 printcp(fit) #select complexity parameter
-prunetree2 = prune(fit, cp=.014)
+prunetree2 = prune(fit, cp=.010)#pruning-cuting it down
 rpart.plot(prunetree2, cex=.8,nn=T)
 prunetree2
 nrow(data)
 
 #Predict class category or probabilities
-(testdata = sample_n(data,2))
-predict(prunetree2, newdata=testdata, type='class')
+library(dplyr)
+(testdata = sample_n(data,5))
+predict(prunetree2, newdata=testdata, type='class')#predicting a class
 predict(prunetree2, newdata=testdata, type='prob')
 
 #Use decision trees for predicting
