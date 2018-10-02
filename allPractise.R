@@ -8,7 +8,7 @@ grade<-factor(grade,ordered=T,levels=c('D','C','B','A'))
 placement<-sample(c('yes','no'),size=100,replace=T, prob=c(0.7,0.3))
 age<-sample(c(21:30),size=100,replace=T)
 experience<-round(rnorm(100,4,1),2)
-students<-data.frame(sname,gender,spl,grade,placement,age,experience,stringAsFactors=T)
+students<-data.frame(gender,spl,grade,placement,age,experience,stringAsFactors=T)
 head(students)
 str(students)
 summary(students)
@@ -46,7 +46,11 @@ pie(table(students$spl))
 km1=kmeans(students[,c(6,7)],centers=3)
 km1
 km1$centers
+plot(students[,c(6,7)], col=km1$cluster)
 
 #decision trees
 library(rpart)
 library(rpart.plot)
+
+tree=rpart(placement ~ . , data=students)#want to predict placements
+rpart.plot(tree, nn=T, cex=.8)
